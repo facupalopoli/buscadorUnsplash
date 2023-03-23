@@ -35,7 +35,7 @@ const ListaFotos = ({busqueda}) => {
     return(
         <div className='listadoFotos'>
             {datosFotos.map((elemento, indice)=>
-                <CardFoto key={indice} myKey={elemento.id} imagen={elemento.urls.small} descriptionImagen={elemento.alt_description} ubicacion={elemento.location.name} camara={elemento.exif.name}/>
+                <CardFoto key={indice} myKey={elemento.id} imagen={elemento.urls.small} descriptionImagen={elemento.alt_description}/>
             )}
         </div>
     )
