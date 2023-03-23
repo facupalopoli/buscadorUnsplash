@@ -1,0 +1,8 @@
+.listadoFotos{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+    width: 75vw;
+    margin: auto;
+    justify-content: center;
+}
