@@ -21,21 +21,21 @@ const ListaFotos = ({busqueda}) => {
         obtenerFotosRandom()
     },[])
     
-    useEffect(()=>{
+    /* useEffect(()=>{
         const obtenerFotosBusqueda = async () => {
             const response = await axios.get(`https://api.unsplash.com/search/photos?query=${busqueda}&client_id=${accessKey}`)
             const datos = response.data.results
             setDatosfotos(datos)
         }   
         obtenerFotosBusqueda()
-    },[busqueda])
+    },[busqueda]) */
 
     console.log(datosFotos)
 
     return(
         <div className='listadoFotos'>
             {datosFotos.map((elemento, indice)=>
-                <CardFoto key={indice} myKey={elemento.id} /* tags={elemento.tags.title} */ imagen={elemento.urls.small} descriptionImagen={elemento.alt_description}/>
+                <CardFoto key={indice} myKey={elemento.id} imagen={elemento.urls.small} descriptionImagen={elemento.alt_description} ubicacion={elemento.location.name} camara={elemento.exif.name}/>
             )}
         </div>
     )
