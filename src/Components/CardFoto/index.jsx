@@ -21,8 +21,8 @@ const CardFoto = ({myKey, imagen, descriptionImagen, userName, linkUser}) => {
     return(
         <div key={myKey}>
             <img src={imagen} alt={descriptionImagen}/>
-            <p>Foto de: <Link href={`${linkUser}${utm}`}>{userName}</Link> en <Link href={`https://unsplash.com/${utm}`}>Unsplash</Link></p>
-            {handleClick ? <Button isDisabled>Gracias</Button> : <Button onClick={obtenerDatos}>Mostrar Detalles</Button>}
+            <p>Foto de: <Link fontWeight='bold' href={`${linkUser}${utm}`}>{userName}</Link> en <Link fontWeight='bold' href={`https://unsplash.com/${utm}`}>Unsplash</Link></p>
+            {!handleClick && <Button onClick={obtenerDatos}>Mostrar Detalles</Button>}
             {handleClick && <p>Ubicación: {datosDetalles.location.name == null ? `SIN DATOS` : datosDetalles.location.name}</p>}
             {handleClick && <p>Cámara: {datosDetalles.exif.model == null ? `SIN DATOS` : datosDetalles.exif.model}</p>}
             {handleClick && 
