@@ -1,14 +1,14 @@
 .loading{
-    display: block;
+    display: flex;
     flex-basis: 100%;
     margin-bottom: 40px;
+    justify-content: center;
 }
 
 .iconLoad{
     font-size: 3rem;
     color: var(--azul);
     animation: giraCarga 1s linear infinite;
-    text-align: center;
 }
 
 @keyframes giraCarga {

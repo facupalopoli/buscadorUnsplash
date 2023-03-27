@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Container, Text, Input } from '@chakra-ui/react';
 import './ListaBusqueda.css'
 import axios from 'axios'
@@ -13,26 +13,29 @@ const ListaBusqueda = () => {
     
     const [datosFotos, setDatosfotos] = useState([])
     const [hasMoreItems, setHasMoreItems] = useState(true)
-    const [pageNumber, setPageNumber] = useState(1)
+    /* const [pageNumber, setPageNumber] = useState(1) */
+    const pageNumber = useRef(1);
     const accessKey = '_AOQg1DMgNmM7pq5nY7XTVPCBqYY8me_Exw9l81sW1Y'
     const {searchQuery} = useParams()
 
     const obtenerFotosBusqueda = async () => {
-            const response = await axios.get(`https://api.unsplash.com/search/photos?query=${searchQuery}&client_id=${accessKey}&page=${pageNumber}`)
+            const response = await axios.get(`https://api.unsplash.com/search/photos?query=${searchQuery}&client_id=${accessKey}&page=${pageNumber.current}`)
             console.log(response)
+            console.log(`funcion ${pageNumber.current}`)
             const datos = response.data.results
             setDatosfotos([...datosFotos, ...datos])
             setHasMoreItems(datos.length > 0)
-            setPageNumber(pageNumber + 1)
+            pageNumber.current = pageNumber.current + 1;
         }
 
     useEffect(()=>{
         setDatosfotos([])
-        setPageNumber(1)
+        pageNumber.current = 1;
+        console.log(`useefect ${pageNumber.current}`)
         obtenerFotosBusqueda()
     },[searchQuery])
 
-    if(!hasMoreItems && pageNumber < 1){
+    if(!hasMoreItems ){
         return(
             <NoResults />
         )
@@ -40,7 +43,7 @@ const ListaBusqueda = () => {
           return(
             <InfiniteScroll
                     className='listadoFotos'
-                    pageStart={0}
+                    pageStart={1}
                     loadMore={obtenerFotosBusqueda}
                     hasMore={hasMoreItems}
                     loader={<Loader key={0} />}

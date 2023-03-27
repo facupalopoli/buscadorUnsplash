@@ -12,7 +12,7 @@ const ListaFotos = () => {
     const accessKey = '_AOQg1DMgNmM7pq5nY7XTVPCBqYY8me_Exw9l81sW1Y'
 
     const obtenerFotosRandom = async () => {
-            const response = await axios.get(`https://api.unsplash.com/photos/random/?client_id=${accessKey}&count=20`)
+            const response = await axios.get(`https://api.unsplash.com/photos/random/?client_id=${accessKey}&count=30`)
             console.log(response)
             const datos = response.data
             setDatosfotos([...datosFotos, ...datos])
