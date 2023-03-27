@@ -3,8 +3,9 @@ import { Container, Heading, Text, Input, Flex, Button } from '@chakra-ui/react'
 import {motion} from 'framer-motion'
 import { MdOutlineLinkedCamera } from "react-icons/md";
 import './Navbar.css'
+import { useNavigate } from 'react-router-dom'
 
-const Navbar = ({propBusqueda={propBusqueda}, setPropBusqueda={setPropBusqueda}}) => {
+const Navbar = () => {
 
     const icon = {
         hidden: {
@@ -18,11 +19,12 @@ const Navbar = ({propBusqueda={propBusqueda}, setPropBusqueda={setPropBusqueda}}
           scale:1.2
         }
       }
-    
-    const [mensaje,setMensaje] = useState('')
 
+    const navigate = useNavigate();
+    const [searchQuery, setSearchQuery] = useState('')
+    
     const handleClick = () =>{
-      setPropBusqueda(mensaje.toLowerCase())
+      navigate(`/search/${searchQuery}`)
     }
     
     return(
@@ -39,7 +41,7 @@ const Navbar = ({propBusqueda={propBusqueda}, setPropBusqueda={setPropBusqueda}}
                 </Heading>
             </Flex>
             <Flex gap='10px' w='60vw'>
-              <Input bg='white' fontSize='1.5rem' p='20px' placeholder='Search' type='text' onChange={(e)=> setMensaje(e.target.value)}/>
+              <Input bg='white' fontSize='1.5rem' p='20px' placeholder='Search' type='text' onChange={(e)=> setSearchQuery(e.target.value)}/>
               <Button onClick={handleClick}><MdOutlineLinkedCamera fontSize='1.5rem'/></Button>
             </Flex>
         </div>

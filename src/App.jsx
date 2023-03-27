@@ -1,18 +1,19 @@
 import { useState } from 'react'
 import './App.css'
-import { ListaFotos, Navbar } from './Components';
+import { ListaFotos, Navbar, ListaBusqueda } from './Components';
 import { ChakraProvider } from '@chakra-ui/react'
-/* import { Route, Routes } from 'react-router-dom' */
+import { Route, Routes } from 'react-router-dom'
 
 function App() {
 
-  const [propBusqueda, setPropBusqueda] = useState('')
-  
   return (
     <div className="App">
       <ChakraProvider>
-        <Navbar propBusqueda={propBusqueda} setPropBusqueda={setPropBusqueda}/>
-        <ListaFotos busqueda={propBusqueda}/>
+        <Navbar />
+        <Routes>
+          <Route path='/' element={<ListaFotos/>} />
+          <Route path='/search/:searchQuery' element={<ListaBusqueda/>} />
+        </Routes>
       </ChakraProvider>
     </div>
   )
