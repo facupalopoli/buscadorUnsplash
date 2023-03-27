@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Heading, Text, Input, Flex, Button } from '@chakra-ui/react';
 import {motion} from 'framer-motion'
 import { MdOutlineLinkedCamera } from "react-icons/md";
 import './Navbar.css'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const Navbar = () => {
 
@@ -19,13 +19,21 @@ const Navbar = () => {
           scale:1.2
         }
       }
-
+    
+    const location = useLocation();
     const navigate = useNavigate();
     const [searchQuery, setSearchQuery] = useState('')
     
     const handleClick = () =>{
       navigate(`/search/${searchQuery}`)
     }
+
+    useEffect(() => {
+      const pathname = location.pathname // Obtener la ruta actual
+      const pathArray = pathname.split("/") // Dividir la ruta por cada '/'
+      const textFromUrl = pathArray.pop() // Obtener el último segmento de la ruta
+      setSearchQuery(textFromUrl) // Establecer el valor del Input con el texto de la UR
+    }, [location]);
     
     return(
         <div className='header'>
@@ -41,7 +49,7 @@ const Navbar = () => {
                 </Heading>
             </Flex>
             <Flex gap='10px' w='60vw'>
-              <Input bg='white' fontSize='1.5rem' p='20px' placeholder='Search' type='text' onChange={(e)=> setSearchQuery(e.target.value)}/>
+              <Input bg='white' value={searchQuery} fontSize='1.5rem' p='20px' placeholder='Search' type='text' onChange={(e)=> setSearchQuery(e.target.value)}/>
               <Button onClick={handleClick}><MdOutlineLinkedCamera fontSize='1.5rem'/></Button>
             </Flex>
         </div>
