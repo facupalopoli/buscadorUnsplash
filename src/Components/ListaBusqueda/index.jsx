@@ -5,6 +5,8 @@ import axios from 'axios'
 import { CardFoto } from '../CardFoto';
 import { useParams } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroller';
+import { NoResults } from '../NoResults';
+import { Loader } from '../Loader';
 
 
 const ListaBusqueda = () => {
@@ -26,22 +28,30 @@ const ListaBusqueda = () => {
 
     useEffect(()=>{
         setDatosfotos([])
+        setPageNumber(1)
         obtenerFotosBusqueda()
     },[searchQuery])
 
-    return(
-        <InfiniteScroll
-                className='listadoFotos'
-                pageStart={0}
-                loadMore={obtenerFotosBusqueda}
-                hasMore={hasMoreItems}
-                loader={<div className="loader" key={0}>Loading ...</div>}
-            >
-            {datosFotos.map((elemento, indice)=>
-                <CardFoto key={`${indice}${elemento.id}`} myKey={elemento.id} imagen={elemento.urls.small} descriptionImagen={elemento.alt_description} userName={elemento.user.name} linkUser={elemento.user.links.html}/>
-            )}
-        </InfiniteScroll>  
-    )
+    if(!hasMoreItems && pageNumber < 1){
+        return(
+            <NoResults />
+        )
+    }else{
+          return(
+            <InfiniteScroll
+                    className='listadoFotos'
+                    pageStart={0}
+                    loadMore={obtenerFotosBusqueda}
+                    hasMore={hasMoreItems}
+                    loader={<Loader key={0} />}
+                >
+                {datosFotos.map((elemento, indice)=>
+                    <CardFoto key={`${indice}${elemento.id}`} myKey={elemento.id} imagen={elemento.urls.small} descriptionImagen={elemento.alt_description} userName={elemento.user.name} linkUser={elemento.user.links.html}/>
+                )}
+            </InfiniteScroll>  
+        )
+    }
+    
 }
 
 export { ListaBusqueda }
