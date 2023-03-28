@@ -11,25 +11,26 @@ import { Loader } from '../Loader';
 
 const ListaBusqueda = () => {
     
-    const [datosFotos, setDatosfotos] = useState([])
+    const [datosFotos, setDatosFotos] = useState([])
     const [hasMoreItems, setHasMoreItems] = useState(true)
     const pageNumber = useRef(1);
     const accessKey = '_AOQg1DMgNmM7pq5nY7XTVPCBqYY8me_Exw9l81sW1Y'
     const {searchQuery} = useParams()
 
     const obtenerFotosBusqueda = async () => {
+            console.log(`funcion ${pageNumber.current}`)
             const response = await axios.get(`https://api.unsplash.com/search/photos?query=${searchQuery}&client_id=${accessKey}&page=${pageNumber.current}`)
             console.log(response)
             console.log(datosFotos)
-            console.log(`funcion ${pageNumber.current}`)
             const datos = response.data.results
             pageNumber.current += 1;
-            setDatosfotos([...datosFotos, ...datos])
+            setDatosFotos([...datosFotos, ...datos])
+            console.log(`luego de setear datos fotos ${datosFotos}`)
             setHasMoreItems(datos.length > 0)            
         }
 
     useEffect(()=>{
-        setDatosfotos([])
+        setDatosFotos([])
         pageNumber.current = 1;
         console.log(`useefect ${pageNumber.current}`)
         console.log(datosFotos)
@@ -44,7 +45,7 @@ const ListaBusqueda = () => {
           return(
             <InfiniteScroll
                     className='listadoFotos'
-                    pageStart={0}
+                    pageStart={1}
                     loadMore={obtenerFotosBusqueda}
                     hasMore={hasMoreItems}
                     loader={<Loader key={0} />}

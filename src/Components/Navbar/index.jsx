@@ -32,7 +32,7 @@ const Navbar = () => {
       const pathname = location.pathname // Obtener la ruta actual
       const pathArray = pathname.split("/") // Dividir la ruta por cada '/'
       const textFromUrl = pathArray.pop() // Obtener el último segmento de la ruta
-      setSearchQuery(textFromUrl) // Establecer el valor del Input con el texto de la UR
+      setSearchQuery(textFromUrl) // Establecer el valor del Input con el texto de la URL
     }, [location]);
     
     return(

@@ -4,6 +4,7 @@ import './ListaFotos.css'
 import axios from 'axios'
 import { CardFoto } from '../CardFoto';
 import InfiniteScroll from 'react-infinite-scroller';
+import { Loader } from '../Loader';
 
 const ListaFotos = () => {
     
@@ -23,15 +24,13 @@ const ListaFotos = () => {
         obtenerFotosRandom()
     },[])
 
-    console.log(datosFotos)
-        
     return(        
             <InfiniteScroll
                 className='listadoFotos'
                 pageStart={0}
                 loadMore={obtenerFotosRandom}
                 hasMore={hasMoreItems}
-                loader={<div className="loader" key={0}>Loading ...</div>}
+                loader={<Loader key={0} />}
             >      
                 {datosFotos.map((elemento, indice)=>
                     <CardFoto key={`${indice}${elemento.id}`} myKey={elemento.id} imagen={elemento.urls.small} descriptionImagen={elemento.alt_description} userName={elemento.user.name} linkUser={elemento.user.links.html}/>
