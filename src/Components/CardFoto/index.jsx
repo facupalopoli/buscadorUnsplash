@@ -37,7 +37,6 @@ const CardFoto = ({myKey, imagen, descriptionImagen, userName, linkUser}) => {
                         indice < 4 &&
                             <Link color='red' 
                                   key={indice} 
-                                  href='' 
                                   onClick={()=>handleTag(elemento.title)}>
                                   {elemento.title}
                             </Link>
